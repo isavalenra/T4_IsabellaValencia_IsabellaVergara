@@ -32,3 +32,13 @@ class Modelo:
             return False
         finally:
             cursor.close()
+
+    def buscar_pacientes(self, nombre):
+        cursor = self.conexion.cursor()
+        cursor.execute('''
+            SELECT * FROM Paciente
+            WHERE LOWER(nombre) LIKE LOWER(?)
+        ''', (nombre + '%',))
+        pacientes = cursor.fetchall()
+        cursor.close()
+        return pacientes
