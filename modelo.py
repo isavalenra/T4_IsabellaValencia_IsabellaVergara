@@ -51,3 +51,6 @@ class Modelo:
         ''', (identificacion,))
         self.conexion.commit()
         cursor.close()
+
+    def cerrar(self):
+        self.conexion.close()
