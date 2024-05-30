@@ -42,3 +42,12 @@ class Modelo:
         pacientes = cursor.fetchall()
         cursor.close()
         return pacientes
+
+    def eliminar_paciente(self, identificacion):
+        cursor = self.conexion.cursor()
+        cursor.execute('''
+            DELETE FROM Paciente
+            WHERE identificacion = ?
+        ''', (identificacion,))
+        self.conexion.commit()
+        cursor.close()
