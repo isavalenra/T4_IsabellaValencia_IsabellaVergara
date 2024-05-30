@@ -18,3 +18,17 @@ class Modelo:
         ''')
         self.conexion.commit()
         cursor.close()
+
+    def agregar_paciente(self, nombre, apellido, edad, identificacion):
+        cursor = self.conexion.cursor()
+        try:
+            cursor.execute('''
+                INSERT INTO Paciente (nombre, apellido, edad, identificacion)
+                VALUES (?, ?, ?, ?)
+            ''', (nombre, apellido, edad, identificacion))
+            self.conexion.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
+        finally:
+            cursor.close()
